@@ -48,6 +48,13 @@ let SellerController = class SellerController {
         console.log(file);
         return { message: "NID uploaded successfully", file };
     }
+    helloBookApi() {
+        throw new common_1.BadRequestException({
+            status: 400,
+            error: "this my custmom error"
+        });
+        return "this is book";
+    }
 };
 exports.SellerController = SellerController;
 __decorate([
@@ -67,6 +74,7 @@ __decorate([
 ], SellerController.prototype, "createSeller", null);
 __decorate([
     (0, common_1.Post)("input"),
+    (0, common_1.UseGuards)(new seller_guard_1.SellerGuard()),
     (0, common_1.UsePipes)(new seller_pipe_1.SellerPipeNid(), new seller_pipe_1.SellerPipeEmail(), new seller_pipe_1.SellerPipeName()),
     __param(0, (0, common_1.Body)(new seller_pipe_1.SellerPipeNid(), new seller_pipe_1.SellerPipeEmail(), new seller_pipe_1.SellerPipeName())),
     __metadata("design:type", Function),
@@ -110,6 +118,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], SellerController.prototype, "uploadNID", null);
+__decorate([
+    (0, common_1.Get)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], SellerController.prototype, "helloBookApi", null);
 exports.SellerController = SellerController = __decorate([
     (0, common_1.Controller)("seller"),
     __metadata("design:paramtypes", [seller_service_1.SellerService])

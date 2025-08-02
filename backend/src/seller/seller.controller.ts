@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards } from "@nestjs/common";
+import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards, BadRequestException } from "@nestjs/common";
 import { SellerService } from "./seller.service";
 import { SellerDTO } from "./dto/create-seller.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -28,6 +28,7 @@ export class SellerController {
 
 //custom pipe validation
   @Post("input")
+  @UseGuards(new SellerGuard())
   @UsePipes(new SellerPipeNid(),new SellerPipeEmail(),new SellerPipeName())
   inputSeller(@Body(new SellerPipeNid(),new SellerPipeEmail(),new SellerPipeName()) data: SellerDTO): SellerDTO {
     return this.sellerService.createSeller(data);
@@ -73,5 +74,23 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
   uploadNID(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
     return { message: "NID uploaded successfully", file };
+  }
+
+
+  @Get('')
+  helloBookApi():string{
+
+
+    throw new BadRequestException({
+
+   
+    status: 400,
+    error: "this my custmom error"
+
+  }
+
+  );
+
+    return "this is book";
   }
 }
