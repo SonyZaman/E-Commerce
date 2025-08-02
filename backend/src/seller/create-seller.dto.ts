@@ -10,7 +10,7 @@ export class SellerDTO {
   @Matches(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.xyz$/, { message: 'Email must end with .xyz domain' })
   email: string;
 
-  @Matches(/^\d{10,17}$/, { message: 'NID must be a number with 10 to 17 digits' })
+  @Matches(/^\d{1,17}$/, { message: 'NID must be a number with 10 to 17 digits' })
   nid: string;
 }
 

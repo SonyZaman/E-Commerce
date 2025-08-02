@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", String)
 ], SellerDTO.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.Matches)(/^\d{10,17}$/, { message: 'NID must be a number with 10 to 17 digits' }),
+    (0, class_validator_1.Matches)(/^\d{1,17}$/, { message: 'NID must be a number with 10 to 17 digits' }),
     __metadata("design:type", String)
 ], SellerDTO.prototype, "nid", void 0);
 //# sourceMappingURL=create-seller.dto.js.map

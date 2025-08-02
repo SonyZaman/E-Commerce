@@ -5,6 +5,7 @@ export declare class SellerController {
     constructor(sellerService: SellerService);
     getProfile(): string;
     createSeller(data: SellerDTO): SellerDTO;
+    inputSeller(data: SellerDTO): SellerDTO;
     findAll(): SellerDTO[];
     getByNid(nid: string): SellerDTO | string;
     uploadNID(file: Express.Multer.File): {

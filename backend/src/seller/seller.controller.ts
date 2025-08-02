@@ -4,6 +4,9 @@ import { SellerDTO } from "./create-seller.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage, MulterError } from "multer";
 import { SellerGuard } from "./seller.guard";
+import { SellerPipe } from './pipes/seller.pipe'; // Adjust relative path
+
+
 
 @Controller("seller")
 export class SellerController {
@@ -24,6 +27,13 @@ export class SellerController {
   }
 
 
+  @Post("input")
+  @UsePipes(new SellerPipe())
+  inputSeller(@Body(new SellerPipe()) data: SellerDTO): SellerDTO {
+    return this.sellerService.createSeller(data);
+  }
+
+
 @Get('all')
 findAll(): SellerDTO[] {
   return this.sellerService.findAll();
@@ -36,6 +46,7 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
   }
   return seller;
 }
+
 
 
 
@@ -64,4 +75,3 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
     return { message: "NID uploaded successfully", file };
   }
 }
-

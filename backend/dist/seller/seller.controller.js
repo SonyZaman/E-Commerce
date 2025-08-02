@@ -19,6 +19,7 @@ const create_seller_dto_1 = require("./create-seller.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const seller_guard_1 = require("./seller.guard");
+const seller_pipe_1 = require("./pipes/seller.pipe");
 let SellerController = class SellerController {
     sellerService;
     constructor(sellerService) {
@@ -28,6 +29,9 @@ let SellerController = class SellerController {
         return this.sellerService.getProfile();
     }
     createSeller(data) {
+        return this.sellerService.createSeller(data);
+    }
+    inputSeller(data) {
         return this.sellerService.createSeller(data);
     }
     findAll() {
@@ -61,6 +65,14 @@ __decorate([
     __metadata("design:paramtypes", [create_seller_dto_1.SellerDTO]),
     __metadata("design:returntype", create_seller_dto_1.SellerDTO)
 ], SellerController.prototype, "createSeller", null);
+__decorate([
+    (0, common_1.Post)("input"),
+    (0, common_1.UsePipes)(new seller_pipe_1.SellerPipe()),
+    __param(0, (0, common_1.Body)(new seller_pipe_1.SellerPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_seller_dto_1.SellerDTO]),
+    __metadata("design:returntype", create_seller_dto_1.SellerDTO)
+], SellerController.prototype, "inputSeller", null);
 __decorate([
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),

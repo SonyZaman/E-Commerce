@@ -6,21 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SellerModule = void 0;
+exports.SellerMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const seller_service_1 = require("./seller.service");
-const seller_controller_1 = require("./seller.controller");
-const seller_middleware_1 = require("./seller.middleware");
-let SellerModule = class SellerModule {
-    configure(consumer) {
-        consumer.apply(seller_middleware_1.SellerMiddleware).forRoutes('seller');
+let SellerMiddleware = class SellerMiddleware {
+    use(req, res, next) {
+        let protocol = req.protocol;
+        let host = req.get("host");
+        let url = req.originalUrl;
+        let method = req.method;
+        let date = new Date().toDateString();
+        console.log(protocol + "://" + host + url + " " + method + " " + date);
+        next();
     }
 };
-exports.SellerModule = SellerModule;
-exports.SellerModule = SellerModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [seller_controller_1.SellerController],
-        providers: [seller_service_1.SellerService],
-    })
-], SellerModule);
-//# sourceMappingURL=seller.module.js.map
+exports.SellerMiddleware = SellerMiddleware;
+exports.SellerMiddleware = SellerMiddleware = __decorate([
+    (0, common_1.Injectable)()
+], SellerMiddleware);
+//# sourceMappingURL=seller.middleware.js.map
