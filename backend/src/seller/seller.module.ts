@@ -2,7 +2,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { SellerService } from './seller.service';
 import { SellerController } from './seller.controller';
-import { SellerMiddleware } from './seller.middleware';
+import { SellerMiddleware } from './middleware/seller.middleware';
 
 @Module({
   controllers: [SellerController],

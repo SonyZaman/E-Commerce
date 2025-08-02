@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SellerController = void 0;
 const common_1 = require("@nestjs/common");
 const seller_service_1 = require("./seller.service");
-const create_seller_dto_1 = require("./create-seller.dto");
+const create_seller_dto_1 = require("./dto/create-seller.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const seller_guard_1 = require("./seller.guard");
@@ -67,8 +67,8 @@ __decorate([
 ], SellerController.prototype, "createSeller", null);
 __decorate([
     (0, common_1.Post)("input"),
-    (0, common_1.UsePipes)(new seller_pipe_1.SellerPipe()),
-    __param(0, (0, common_1.Body)(new seller_pipe_1.SellerPipe())),
+    (0, common_1.UsePipes)(new seller_pipe_1.SellerPipeNid(), new seller_pipe_1.SellerPipeEmail(), new seller_pipe_1.SellerPipeName()),
+    __param(0, (0, common_1.Body)(new seller_pipe_1.SellerPipeNid(), new seller_pipe_1.SellerPipeEmail(), new seller_pipe_1.SellerPipeName())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_seller_dto_1.SellerDTO]),
     __metadata("design:returntype", create_seller_dto_1.SellerDTO)

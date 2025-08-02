@@ -1,10 +1,10 @@
 import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards } from "@nestjs/common";
 import { SellerService } from "./seller.service";
-import { SellerDTO } from "./create-seller.dto";
+import { SellerDTO } from "./dto/create-seller.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage, MulterError } from "multer";
 import { SellerGuard } from "./seller.guard";
-import { SellerPipe } from './pipes/seller.pipe'; // Adjust relative path
+import { SellerPipeEmail, SellerPipeName, SellerPipeNid } from './pipes/seller.pipe'; // Adjust relative path
 
 
 
@@ -19,17 +19,17 @@ export class SellerController {
     return this.sellerService.getProfile();
   }
 
- 
+ //builtin pipe validation
   @Post("create")
   @UsePipes(new ValidationPipe())
   createSeller(@Body() data: SellerDTO): SellerDTO {
     return this.sellerService.createSeller(data);
   }
 
-
+//custom pipe validation
   @Post("input")
-  @UsePipes(new SellerPipe())
-  inputSeller(@Body(new SellerPipe()) data: SellerDTO): SellerDTO {
+  @UsePipes(new SellerPipeNid(),new SellerPipeEmail(),new SellerPipeName())
+  inputSeller(@Body(new SellerPipeNid(),new SellerPipeEmail(),new SellerPipeName()) data: SellerDTO): SellerDTO {
     return this.sellerService.createSeller(data);
   }
 

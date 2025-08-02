@@ -1,5 +1,5 @@
 import { SellerService } from "./seller.service";
-import { SellerDTO } from "./create-seller.dto";
+import { SellerDTO } from "./dto/create-seller.dto";
 export declare class SellerController {
     private readonly sellerService;
     constructor(sellerService: SellerService);

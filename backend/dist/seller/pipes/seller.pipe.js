@@ -6,18 +6,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SellerPipe = void 0;
+exports.SellerPipeNid = exports.SellerPipeEmail = exports.SellerPipeName = void 0;
 const common_1 = require("@nestjs/common");
-let SellerPipe = class SellerPipe {
-    transform(value, metadata) {
-        if (typeof value.name !== 'string' || !/^[A-Za-z]{3}$/.test(value.name)) {
-            throw new common_1.BadRequestException('Name must be exactly 3 alphabetic characters');
+let SellerPipeName = class SellerPipeName {
+    transform(value) {
+        if (typeof value.name !== 'string' || !/^[A-Za-z]+$/.test(value.name)) {
+            throw new common_1.BadRequestException('Name must only contain alphabetic characters');
         }
         return value;
     }
 };
-exports.SellerPipe = SellerPipe;
-exports.SellerPipe = SellerPipe = __decorate([
+exports.SellerPipeName = SellerPipeName;
+exports.SellerPipeName = SellerPipeName = __decorate([
     (0, common_1.Injectable)()
-], SellerPipe);
+], SellerPipeName);
+let SellerPipeEmail = class SellerPipeEmail {
+    transform(value) {
+        if (typeof value.email !== 'string' || !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.xyz$/.test(value.email)) {
+            throw new common_1.BadRequestException('Email must contain "@" and end with .xyz domain');
+        }
+        return value;
+    }
+};
+exports.SellerPipeEmail = SellerPipeEmail;
+exports.SellerPipeEmail = SellerPipeEmail = __decorate([
+    (0, common_1.Injectable)()
+], SellerPipeEmail);
+let SellerPipeNid = class SellerPipeNid {
+    transform(value) {
+        if (typeof value.nid !== 'string' || !/^\d{10,}$/.test(value.nid)) {
+            throw new common_1.BadRequestException('NID must be a number with at least 10 digits');
+        }
+        return value;
+    }
+};
+exports.SellerPipeNid = SellerPipeNid;
+exports.SellerPipeNid = SellerPipeNid = __decorate([
+    (0, common_1.Injectable)()
+], SellerPipeNid);
 //# sourceMappingURL=seller.pipe.js.map

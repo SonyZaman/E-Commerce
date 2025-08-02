@@ -1,4 +1,4 @@
-import { SellerDTO } from "./create-seller.dto";
+import { SellerDTO } from "./dto/create-seller.dto";
 export declare class SellerService {
     private sellers;
     getProfile(): string;
