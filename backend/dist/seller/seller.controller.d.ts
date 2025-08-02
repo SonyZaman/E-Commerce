@@ -14,4 +14,5 @@ export declare class SellerController {
     };
     helloBookApi(): string;
     All(): void;
+    product(): any;
 }

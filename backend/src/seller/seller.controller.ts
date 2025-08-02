@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards, BadRequestException, UseFilters, HttpException } from "@nestjs/common";
+import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards, BadRequestException, UseFilters, HttpException, Req, Res } from "@nestjs/common";
 import { SellerService } from "./seller.service";
 import { SellerDTO } from "./dto/create-seller.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -6,6 +6,8 @@ import { diskStorage, MulterError } from "multer";
 import { SellerGuard } from "./seller.guard";
 import { SellerPipeEmail, SellerPipeName, SellerPipeNid } from './pipes/seller.pipe'; // Adjust relative path
 import { SellerCustomExceptionFilter } from "./exception/seller.exception.filter";
+import { SellerInterceptor } from "./interceptor/seller.interceptor";
+import { Request, Response } from 'express';
 
 
 
@@ -95,6 +97,8 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
     return "Hi, i am seller";
   }
 
+  //custom exceptionFilter
+
   @Get("exceptionFilter")
   @UseFilters(SellerCustomExceptionFilter)  
   All() {
@@ -102,4 +106,15 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
     throw new BadRequestException();
     //throw new HttpException('Forbidden', 403); // Example exception
   }
+
+
+
+  //interceptor: can modify both --request and response
+  //interceptor er through attach product object and response change
+  @Post("product")
+  @UseInterceptors(SellerInterceptor)
+  product(): any {
+    return "this is the response";
+  }
+
 }

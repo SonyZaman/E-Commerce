@@ -21,6 +21,7 @@ const multer_1 = require("multer");
 const seller_guard_1 = require("./seller.guard");
 const seller_pipe_1 = require("./pipes/seller.pipe");
 const seller_exception_filter_1 = require("./exception/seller.exception.filter");
+const seller_interceptor_1 = require("./interceptor/seller.interceptor");
 let SellerController = class SellerController {
     sellerService;
     constructor(sellerService) {
@@ -58,6 +59,9 @@ let SellerController = class SellerController {
     }
     All() {
         throw new common_1.BadRequestException();
+    }
+    product() {
+        return "this is the response";
     }
 };
 exports.SellerController = SellerController;
@@ -135,6 +139,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SellerController.prototype, "All", null);
+__decorate([
+    (0, common_1.Post)("product"),
+    (0, common_1.UseInterceptors)(seller_interceptor_1.SellerInterceptor),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Object)
+], SellerController.prototype, "product", null);
 exports.SellerController = SellerController = __decorate([
     (0, common_1.Controller)("seller"),
     __metadata("design:paramtypes", [seller_service_1.SellerService])
