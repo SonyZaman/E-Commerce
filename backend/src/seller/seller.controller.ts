@@ -1,10 +1,11 @@
-import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards, BadRequestException } from "@nestjs/common";
+import { Controller, Post, Get, Body, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Param, UseGuards, BadRequestException, UseFilters, HttpException } from "@nestjs/common";
 import { SellerService } from "./seller.service";
 import { SellerDTO } from "./dto/create-seller.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage, MulterError } from "multer";
 import { SellerGuard } from "./seller.guard";
 import { SellerPipeEmail, SellerPipeName, SellerPipeNid } from './pipes/seller.pipe'; // Adjust relative path
+import { SellerCustomExceptionFilter } from "./exception/seller.exception.filter";
 
 
 
@@ -76,8 +77,8 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
     return { message: "NID uploaded successfully", file };
   }
 
-
-  @Get('')
+ //custom exception
+  @Get('exception')
   helloBookApi():string{
 
 
@@ -91,6 +92,14 @@ getByNid(@Param('nid') nid: string): SellerDTO | string {
 
   );
 
-    return "this is book";
+    return "Hi, i am seller";
+  }
+
+  @Get("exceptionFilter")
+  @UseFilters(SellerCustomExceptionFilter)  
+  All() {
+    
+    throw new BadRequestException();
+    //throw new HttpException('Forbidden', 403); // Example exception
   }
 }

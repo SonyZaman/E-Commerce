@@ -13,4 +13,5 @@ export declare class SellerController {
         file: Express.Multer.File;
     };
     helloBookApi(): string;
+    All(): void;
 }

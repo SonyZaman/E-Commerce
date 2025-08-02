@@ -20,6 +20,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const seller_guard_1 = require("./seller.guard");
 const seller_pipe_1 = require("./pipes/seller.pipe");
+const seller_exception_filter_1 = require("./exception/seller.exception.filter");
 let SellerController = class SellerController {
     sellerService;
     constructor(sellerService) {
@@ -53,7 +54,10 @@ let SellerController = class SellerController {
             status: 400,
             error: "this my custmom error"
         });
-        return "this is book";
+        return "Hi, i am seller";
+    }
+    All() {
+        throw new common_1.BadRequestException();
     }
 };
 exports.SellerController = SellerController;
@@ -119,11 +123,18 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SellerController.prototype, "uploadNID", null);
 __decorate([
-    (0, common_1.Get)(''),
+    (0, common_1.Get)('exception'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], SellerController.prototype, "helloBookApi", null);
+__decorate([
+    (0, common_1.Get)("exceptionFilter"),
+    (0, common_1.UseFilters)(seller_exception_filter_1.SellerCustomExceptionFilter),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], SellerController.prototype, "All", null);
 exports.SellerController = SellerController = __decorate([
     (0, common_1.Controller)("seller"),
     __metadata("design:paramtypes", [seller_service_1.SellerService])
