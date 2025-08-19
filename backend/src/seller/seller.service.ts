@@ -5,6 +5,8 @@ import { SellerEntity } from './seller.entity';
 import { UpdateSellerDto } from './dto/update-seller.dto';
 import { CreateSellerDto } from './dto/create-seller.dto';
 
+
+
 @Injectable()
 export class SellerService {
   constructor(
@@ -30,6 +32,18 @@ export class SellerService {
     const seller = await this.sellerRepository.findOne({ where: { id } });
     if (!seller) {
       throw new Error(`Seller with id ${id} not found`);
+    }
+    return seller;
+  }
+
+
+
+
+   // Get seller by id
+  async findOneByEmail(email: string): Promise<SellerEntity> {
+    const seller = await this.sellerRepository.findOne({ where: { email } });
+    if (!seller) {
+      throw new Error(`Seller with id ${email} not found`);
     }
     return seller;
   }

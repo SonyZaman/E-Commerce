@@ -1,8 +1,9 @@
 // auth.controller.ts
-import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateSellerDto } from 'src/seller/dto/create-seller.dto';
 import { LoginDto } from './login.dto'; // DTO for login
+import { ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,5 +19,8 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     return this.authService.signIn(loginDto); // Passing loginDto to AuthService
   }
+
+
+ 
 }
 

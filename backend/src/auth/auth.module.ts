@@ -5,10 +5,13 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { SellerModule } from 'src/seller/seller.module'; // Import SellerModule
 import { AuthController } from './auth.controller';
+//import { MailModule } from 'src/mail/mailer.module';
+
 
 @Module({
   imports: [
     SellerModule,  // Import Seller module to access seller data
+    //MailModule,
     JwtModule.register({
       secret: 'your_secret_key',  // Store this in an environment variable
       signOptions: { expiresIn: '1h' },  // Set JWT expiry time

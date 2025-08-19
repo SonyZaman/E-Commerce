@@ -1,4 +1,3 @@
-
 // auth.service.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -6,16 +5,18 @@ import { SellerService } from '../seller/seller.service';
 import { CreateSellerDto } from 'src/seller/dto/create-seller.dto';
 import { LoginDto } from './login.dto'; // Login DTO for validation
 import * as bcrypt from 'bcrypt';
+//import { MailService } from 'src/mail/mailer.service';
+import { ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private sellerService: SellerService, 
+   // private mailService: MailService,
     private jwtService: JwtService
   ) {}
 
   // Sign up a new seller
-  //Bcrypt is used to hash the password before storing it
   async signUp(createSellerDto: CreateSellerDto): Promise<CreateSellerDto> {
     // Hash the password before storing
     const salt = await bcrypt.genSalt();
@@ -44,4 +45,13 @@ export class AuthService {
     };
 }
 
+
+
+
+
+
+
+
 }
+
+

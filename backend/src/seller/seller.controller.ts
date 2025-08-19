@@ -17,10 +17,10 @@ export class SellerController {
   }
 
 
-  // @Get('all')
-  // async findAll2() {
-  //   return await this.sellerService.findAll();
-  // }
+  @Get('all')
+  async findAll2() {
+    return await this.sellerService.findAll();
+  }
 
   // Get seller by email
   @UseGuards(JwtAuthGuard)

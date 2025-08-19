@@ -12,23 +12,34 @@ const typeorm_1 = require("@nestjs/typeorm");
 const seller_module_1 = require("./seller/seller.module");
 const product_module_1 = require("./product/product.module");
 const auth_module_1 = require("./auth/auth.module");
+const config_1 = require("@nestjs/config");
+const email_module_1 = require("./email/email.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'postgres',
-                password: '01082000',
-                database: 'ecommerce',
-                autoLoadEntities: true,
-                synchronize: true,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
             }),
-            seller_module_1.SellerModule, product_module_1.ProductModule, auth_module_1.AuthModule
+            typeorm_1.TypeOrmModule.forRootAsync({
+                useFactory: async (configService) => ({
+                    type: 'postgres',
+                    host: 'localhost',
+                    port: 5432,
+                    username: 'postgres',
+                    password: configService.get('DB_PASSWORD'),
+                    database: configService.get('DB_NAME'),
+                    autoLoadEntities: true,
+                    synchronize: true,
+                }),
+                inject: [config_1.ConfigService],
+            }),
+            seller_module_1.SellerModule,
+            product_module_1.ProductModule,
+            auth_module_1.AuthModule,
+            email_module_1.EmailModule,
         ],
         controllers: [],
         providers: [],
