@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SellerEntity } from './seller.entity';
-import { CreateSellerDto } from './dto/create-seller.dto';
 import { UpdateSellerDto } from './dto/update-seller.dto';
+import { CreateSellerDto } from './dto/create-seller.dto';
 
 @Injectable()
 export class SellerService {
@@ -12,7 +12,9 @@ export class SellerService {
     private sellerRepository: Repository<SellerEntity>,
   ) {}
 
-  // Create a new seller
+
+//create
+
   async create(createSellerDto: CreateSellerDto): Promise<SellerEntity> {
     const seller = this.sellerRepository.create(createSellerDto);
     return await this.sellerRepository.save(seller);
@@ -23,7 +25,7 @@ export class SellerService {
     return await this.sellerRepository.find();
   }
 
-  // Get seller by ID
+  // Get seller by id
   async findOne(id: number): Promise<SellerEntity> {
     const seller = await this.sellerRepository.findOne({ where: { id } });
     if (!seller) {
@@ -31,6 +33,8 @@ export class SellerService {
     }
     return seller;
   }
+
+
 
   // Update seller details
   async update(id: number, updateSellerDto: UpdateSellerDto): Promise<SellerEntity> {

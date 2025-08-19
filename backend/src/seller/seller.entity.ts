@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { ProductEntity } from '../product/product.entity';
+
 
 @Entity('sellers')
 export class SellerEntity {
@@ -32,4 +33,7 @@ export class SellerEntity {
 
   @OneToMany(() => ProductEntity, product => product.seller)
   products: ProductEntity[]; // One-to-many relationship with Product
+
+
+  
 }
