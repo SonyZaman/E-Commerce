@@ -1,5 +1,6 @@
-export declare class SellerDTO {
+export declare class CreateSellerDto {
     name: string;
     email: string;
-    nid: string;
+    password: string;
+    isActive: boolean;
 }

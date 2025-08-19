@@ -8,13 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const seller_module_1 = require("./seller/seller.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const sellers_module_1 = require("./seller/sellers.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [seller_module_1.SellerModule],
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: 'localhost',
+                port: 5432,
+                username: 'postgres',
+                password: '01082000',
+                database: 'ecommerce',
+                autoLoadEntities: true,
+                synchronize: true,
+            }),
+            sellers_module_1.SellerModule,
+        ],
         controllers: [],
         providers: [],
     })
