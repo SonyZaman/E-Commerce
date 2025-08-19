@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SellerModule } from './seller/sellers.module';
+import { SellerModule } from './seller/seller.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { SellerModule } from './seller/sellers.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    SellerModule,
+    SellerModule,ProductModule
   ],
   controllers: [],
   providers: [],

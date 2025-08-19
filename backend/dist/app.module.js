@@ -9,7 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const sellers_module_1 = require("./seller/sellers.module");
+const seller_module_1 = require("./seller/seller.module");
+const product_module_1 = require("./product/product.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,7 +27,7 @@ exports.AppModule = AppModule = __decorate([
                 autoLoadEntities: true,
                 synchronize: true,
             }),
-            sellers_module_1.SellerModule,
+            seller_module_1.SellerModule, product_module_1.ProductModule
         ],
         controllers: [],
         providers: [],

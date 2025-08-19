@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { ProductEntity } from '../product/product.entity';
 
-@Entity('sellers')  // 'sellers' টেবিল তৈরি হবে
+@Entity('sellers')
 export class SellerEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,8 +13,23 @@ export class SellerEntity {
   email: string;
 
   @Column()
-  password: string;  // ইউজারের পাসওয়ার্ড
+  password: string;
 
   @Column({ default: true })
-  isActive: boolean;  // সেলার অ্যাক্টিভ কিনা
+  isActive: boolean;
+
+  @Column()
+  storeName: string; // Store name
+
+  @Column({ type: 'text', nullable: true })
+  storeDescription: string; // Store description
+
+  @Column({ nullable: true })
+  contactNumber: string; // Contact number
+
+  @Column({ nullable: true })
+  address: string; // Address
+
+  @OneToMany(() => ProductEntity, product => product.seller)
+  products: ProductEntity[]; // One-to-many relationship with Product
 }

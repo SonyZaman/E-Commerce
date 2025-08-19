@@ -9,7 +9,7 @@ import { UpdateSellerDto } from './dto/update-seller.dto';
 export class SellerService {
   constructor(
     @InjectRepository(SellerEntity)
-    private sellerRepository: Repository<SellerEntity>,  // SellerEntityRepository ইনজেক্ট করা হচ্ছে
+    private sellerRepository: Repository<SellerEntity>,
   ) {}
 
   // Create a new seller
@@ -24,14 +24,22 @@ export class SellerService {
   }
 
   // Get seller by ID
-  async findOne(id: number): Promise<SellerEntity | null> {
-    return await this.sellerRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<SellerEntity> {
+    const seller = await this.sellerRepository.findOne({ where: { id } });
+    if (!seller) {
+      throw new Error(`Seller with id ${id} not found`);
+    }
+    return seller;
   }
 
-  // Update a seller's details
-  async update(id: number, updateSellerDto: UpdateSellerDto): Promise<SellerEntity | null> {
+  // Update seller details
+  async update(id: number, updateSellerDto: UpdateSellerDto): Promise<SellerEntity> {
     await this.sellerRepository.update(id, updateSellerDto);
-    return await this.sellerRepository.findOne({ where: { id } });
+    const seller = await this.sellerRepository.findOne({ where: { id } });
+    if (!seller) {
+      throw new Error(`Seller with id ${id} not found`);
+    }
+    return seller;
   }
 
   // Delete a seller
@@ -39,4 +47,3 @@ export class SellerService {
     await this.sellerRepository.delete(id);
   }
 }
-

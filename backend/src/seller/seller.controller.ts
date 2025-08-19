@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { SellerService } from './sellers.service';
+import { SellerService } from './seller.service';
 import { CreateSellerDto } from './dto/create-seller.dto';
 import { UpdateSellerDto } from './dto/update-seller.dto';
 
 @Controller('sellers')
-export class SellersController {
+export class SellerController {
   constructor(private readonly sellerService: SellerService) {}
 
   // Create a new seller

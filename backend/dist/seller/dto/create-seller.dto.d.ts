@@ -3,4 +3,8 @@ export declare class CreateSellerDto {
     email: string;
     password: string;
     isActive: boolean;
+    storeName: string;
+    storeDescription: string;
+    contactNumber: string;
+    address: string;
 }
